@@ -76,5 +76,16 @@ module Types
     def post_comments(post_id:)
       Comment.where("post_id = #{post_id}")
     end
+
+    # Subcomment Queries
+
+    # Get subcomments for a specific comment
+    field :subcomments, [Types::SubcommentType], null: false do
+      argument :comment_id, ID, required: true
+    end
+
+    def subcomments(comment_id:)
+      Subcomment.where("comment_id = #{comment_id}")
+    end
   end
 end
