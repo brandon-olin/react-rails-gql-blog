@@ -9,7 +9,6 @@ module Mutations
 
     def resolve(post_id:, **attributes)
       post = Post.find(post_id)
-
       if post.update(attributes)
         {
           post: post,

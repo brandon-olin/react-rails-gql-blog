@@ -1,9 +1,5 @@
 class Post < ApplicationRecord
   belongs_to :user
   has_many :comments
-  after_initialize :init
-
-  def init
-    self.karma = 0
-  end
+  has_many :post_votes
 end

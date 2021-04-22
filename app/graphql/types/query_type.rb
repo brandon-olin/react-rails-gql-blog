@@ -49,13 +49,30 @@ module Types
       Post.where("user_id = #{user_id}")
     end
 
+    # Get votes for a specific post
+    field :post_votes, [Types::PostVoteType], null: false do
+      argument :post_id, ID, required: true
+    end
+
+    def post_votes(post_id:)
+      PostVote.where("post_id = #{post_id}")
+    end
+
+    # Get total value of votes for a specific post
+    field :post_votes_value, Int, null: false do
+      argument :post_id, ID, required: true
+    end
+
+    def post_votes_value(post_id:)
+      PostVote.where("post_id = #{post_id}").reduce(0) { |sum, n| sum + n.value }
+    end
+
     # Comment Queries
 
     # Get all comments
     field :comments, [Types::CommentType], null: false
 
     def comments
-      puts "Getting comments!"
       Comment.all
     end
 
